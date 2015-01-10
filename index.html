@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>MinuteQuest Set Calculator</title>
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript">
+      System.import('app/main').catch(function (e) {
+        throw e;
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" style="border-bottom: 1px solid #eee;">
+        <div class="col-sm-12">
+          <h3>MinuteQuest Set Calculator</h3>
+          <p>
+            This is a little barebones set calculator for MinuteQuest (<a href="http://www.reddit.com/r/MinuteQuest">reddit</a>), a casual mobile game.
+            The data is extracted from <a href="http://www.reddit.com/u/soulctcher">/u/soulctcher</a>'s <a href="https://docs.google.com/spreadsheets/d/1BU93lKJRZ_i41sP9PCLb8k5rnXxBeN1ZhUFqLW2XYEY/edit#gid=1096730482">spreadsheet</a>.
+            There's a ton of sets to load/generate, so please be patient.
+            The source is available on <a href="https://github.com/jdknezek/mq-set-calc">GitHub</a>.
+          </p>
+        </div>
+      </div>
+
+      <div id="app" style="margin-top: 20px;">
+        <div class="alert alert-info">
+          Loading...
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
