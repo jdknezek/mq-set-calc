@@ -167,9 +167,9 @@ var App = React.createClass({
           <tbody>
             {this.state.displayed.map(set => <tr key={set.weapon.WEAPON + '/' + set.armor.ARMOR + '/' + set.pet.PET}>
               <td>{set.distance.toFixed(1)}</td>
-              <td>{set.weapon.WEAPON}</td>
-              <td>{set.armor.ARMOR}</td>
-              <td>{set.pet.PET}</td>
+              <td>{set.weapon.WEAPON} ({set.weapon.DISTANCE.toFixed(1)})</td>
+              <td>{set.armor.ARMOR} ({set.armor.DISTANCE.toFixed(1)})</td>
+              <td>{set.pet.PET} ({set.pet.DISTANCE.toFixed(1)})</td>
               <td>{set.skills[0]}</td>
               <td>{set.skills[1]}</td>
               <td>{set.skills[2]}</td>
