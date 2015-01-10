@@ -10,7 +10,6 @@ System.config({
 System.config({
   "map": {
     "bootstrap": "github:twbs/bootstrap@3.3.1",
-    "csv-parse": "npm:csv-parse@0.0.6",
     "jquery": "github:components/jquery@2.1.3",
     "jsx": "github:floatdrop/plugin-jsx@0.1.1",
     "lodash": "npm:lodash@2.4.1",
@@ -173,13 +172,6 @@ System.config({
       "public-encrypt": "npm:public-encrypt@1.1.2",
       "ripemd160": "npm:ripemd160@0.2.0",
       "sha.js": "npm:sha.js@2.3.0",
-      "stream": "github:jspm/nodelibs-stream@0.1.0",
-      "util": "github:jspm/nodelibs-util@0.1.0"
-    },
-    "npm:csv-parse@0.0.6": {
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "fs": "github:jspm/nodelibs-fs@0.1.0",
-      "process": "github:jspm/nodelibs-process@0.1.0",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
