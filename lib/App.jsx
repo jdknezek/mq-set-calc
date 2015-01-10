@@ -57,12 +57,25 @@ var App = React.createClass({
     event.stopPropagation();
 
     if (this.state.calculated) {
-      this.setState({displayed: _.sortBy(this.state.calculated, set => [
-        set.distance,
-        set.weapon.DISTANCE,
-        set.armor.DISTANCE,
-        set.pet.DISTANCE
-      ])});
+      this.setState({displayed: this.state.calculated.sort((a, b) => {
+        if (a.distance < b.distance) {
+          return -1;
+        } else if (a.distance > b.distance) {
+          return 1;
+        } else if (a.weapon.DISTANCE < b.weapon.DISTANCE) {
+          return -1;
+        } else if (a.weapon.DISTANCE > b.weapon.DISTANCE) {
+          return 1;
+        } else if (a.armor.DISTANCE < b.armor.DISTANCE) {
+          return -1;
+        } else if (a.armor.DISTANCE > b.armor.DISTANCE) {
+          return 1;
+        } else if (a.pet.DISTANCE < b.pet.DISTANCE) {
+          return -1;
+        } else if (a.pet.DISTANCE > b.pet.DISTANCE) {
+          return 1;
+        }
+      })});
     } else {
       var distance = parseFloat(this.state.filters.distance, 10);
       var skills = _(this.state.filters.skills).filter().sort().valueOf();
@@ -137,7 +150,7 @@ var App = React.createClass({
         </div>
       </form>
 
-      <div className="table-responsive">
+      <div className="table-responsive" style={{marginTop: 20}}>
         <table className="table table-striped table-hover table-condensed">
           <thead>
             <tr>
