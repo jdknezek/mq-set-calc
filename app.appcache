@@ -1,0 +1,13 @@
+CACHE MANIFEST
+build.js # e14a71a453490fe06cfbf5308bb9ce2f5a69c608
+build.js.map # 471c9e71efe76518c0250e0ce1bc5dd57e0ada50
+config.js # 32b6fea67c434824689dc79986e6c51e82f44b37
+jspm_packages/es6-module-loader.js # ea262b49690ebf735f3b4e5f3ed15b151da7f299
+jspm_packages/es6-module-loader.js.map # 48dd066c84f02b78e60554ee7b34b9a4df17a8ea
+jspm_packages/github/twbs/bootstrap@3.3.1/css/bootstrap.css # 0b53e330c67cd6f8551b7dc12e033b31e4ab1bdb
+jspm_packages/github/twbs/bootstrap@3.3.1/css/bootstrap.css.map # 75a138069e6333d953821305e2e8421c3fd57b88
+jspm_packages/system.js # c8029c4aea4e8915ac89587e09322818fb72dc5c
+jspm_packages/system.js.map # 0ee8287b51d2c961345d5102483e1e25a11d8359
+
+NETWORK:
+*

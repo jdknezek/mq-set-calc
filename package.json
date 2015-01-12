@@ -1,4 +1,10 @@
 {
+  "devDependencies": {
+    "6to5": "^2.9.4",
+    "bluebird": "^2.6.2",
+    "globby": "^1.1.0",
+    "jspm": "^0.10.4"
+  },
   "jspm": {
     "dependencies": {
       "bootstrap": "^3.3.1",
@@ -11,5 +17,11 @@
       "transpileES6": true,
       "minify": true
     }
+  },
+  "repository": "https://github.com/jdknezek/mq-set-calc",
+  "scripts": {
+    "install": "jspm install",
+    "bundle": "jspm bundle app/main --minify",
+    "manifest": "6to5-node appcache.js > app.appcache"
   }
 }
