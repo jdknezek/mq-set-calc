@@ -16,7 +16,8 @@ var App = React.createClass({
       skills: _(skills).keys().sortBy(),
       filters,
       calculated: null,
-      displayed: []
+      displayed: [],
+      offset: 0
     };
   },
 
@@ -57,25 +58,28 @@ var App = React.createClass({
     event.stopPropagation();
 
     if (this.state.calculated) {
-      this.setState({displayed: this.state.calculated.sort((a, b) => {
-        if (a.distance < b.distance) {
-          return -1;
-        } else if (a.distance > b.distance) {
-          return 1;
-        } else if (a.weapon.DISTANCE < b.weapon.DISTANCE) {
-          return -1;
-        } else if (a.weapon.DISTANCE > b.weapon.DISTANCE) {
-          return 1;
-        } else if (a.armor.DISTANCE < b.armor.DISTANCE) {
-          return -1;
-        } else if (a.armor.DISTANCE > b.armor.DISTANCE) {
-          return 1;
-        } else if (a.pet.DISTANCE < b.pet.DISTANCE) {
-          return -1;
-        } else if (a.pet.DISTANCE > b.pet.DISTANCE) {
-          return 1;
-        }
-      })});
+      this.setState({
+        displayed: this.state.calculated.sort((a, b) => {
+          if (a.distance < b.distance) {
+            return -1;
+          } else if (a.distance > b.distance) {
+            return 1;
+          } else if (a.weapon.DISTANCE < b.weapon.DISTANCE) {
+            return -1;
+          } else if (a.weapon.DISTANCE > b.weapon.DISTANCE) {
+            return 1;
+          } else if (a.armor.DISTANCE < b.armor.DISTANCE) {
+            return -1;
+          } else if (a.armor.DISTANCE > b.armor.DISTANCE) {
+            return 1;
+          } else if (a.pet.DISTANCE < b.pet.DISTANCE) {
+            return -1;
+          } else if (a.pet.DISTANCE > b.pet.DISTANCE) {
+            return 1;
+          }
+        }),
+        offset: 0
+      });
     } else {
       var distance = parseFloat(this.state.filters.distance, 10);
       var skills = _(this.state.filters.skills).filter().sort().valueOf();
@@ -110,7 +114,25 @@ var App = React.createClass({
     }
   },
 
+  pageChanged(event) {
+    this.setState({offset: parseInt(event.target.value, 10)});
+  },
+
   render() {
+    var pagination;
+    if (this.state.displayed && this.state.displayed.length > 100) {
+      var options = [];
+      for (var i = 0; i < this.state.displayed.length; i += 100) {
+        options.push(<option key={i} value={i}>Page {(i / 100) + 1}</option>);
+      }
+
+      pagination = <div className="form-group">
+        <div className="col-sm-offset-5 col-sm-2" style={{textAlign: 'center'}}>
+          <select key={this.state.offset} className="form-control" value={this.state.offset} onChange={this.pageChanged}>{options}</select>
+        </div>
+      </div>;
+    }
+
     return <div>
       <form className="form-horizontal" onSubmit={this.formSubmitted}>
         {_.range(3).map(i => <div key={'skill-' + (i + 1)} className="form-group">
@@ -141,13 +163,15 @@ var App = React.createClass({
           </div>
         </div>
 
-        <div className="row">
+        <div className="form-group">
           <div className="col-sm-12" style={{textAlign: 'right'}}>
             {this.state.calculated ?
               <button type="submit" className="btn btn-primary">Display <strong>{this.state.calculated.length}</strong> set{this.state.calculated.length === 1 ? '' : 's'}</button> :
               <button type="submit" className="btn btn-primary">Calculate sets</button>}
           </div>
         </div>
+
+        {pagination}
       </form>
 
       <div className="table-responsive" style={{marginTop: 20}}>
@@ -165,7 +189,7 @@ var App = React.createClass({
             </tr>
           </thead>
           <tbody>
-            {this.state.displayed.map(set => <tr key={set.weapon.WEAPON + '/' + set.armor.ARMOR + '/' + set.pet.PET}>
+            {this.state.displayed.slice(this.state.offset, this.state.offset + 100).map(set => <tr key={set.weapon.WEAPON + '/' + set.armor.ARMOR + '/' + set.pet.PET}>
               <td>{set.distance.toFixed(1)}</td>
               <td>{set.weapon.WEAPON} ({set.weapon.DISTANCE.toFixed(1)})</td>
               <td>{set.armor.ARMOR} ({set.armor.DISTANCE.toFixed(1)})</td>
