@@ -3,7 +3,8 @@
     "6to5": "^2.9.4",
     "bluebird": "^2.6.2",
     "globby": "^1.1.0",
-    "jspm": "^0.10.4"
+    "jspm": "^0.10.4",
+    "lodash": "^2.4.1"
   },
   "jspm": {
     "dependencies": {
@@ -22,6 +23,8 @@
   "scripts": {
     "install": "jspm install",
     "bundle": "jspm bundle app/main --minify",
-    "manifest": "6to5-node appcache.js > app.appcache"
+    "manifest": "6to5-node --experimental manifest.js > manifest.appcache",
+    "clean": "rm -f build.js* manifest.appcache",
+    "rebuild": "npm run clean && npm run bundle && npm run manifest"
   }
 }

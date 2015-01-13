@@ -7,13 +7,13 @@ var App = React.createClass({
     this.props.sets.forEach(set => set.skills.forEach(skill => skills[skill] = null));
 
     var filters = {
-      skills: [null, null, null],
+      skills: ['', '', ''],
       distance: '',
       rare: true
     };
 
     return {
-      skills: _(skills).keys().sortBy(),
+      skills: _(skills).keys().sortBy().valueOf(),
       filters,
       calculated: null,
       displayed: [],
@@ -23,13 +23,10 @@ var App = React.createClass({
 
   skillChanged(index) {
     return (event) => {
-      var skills = this.state.skills.slice();
-      skills[index] = event.target.value;
+      var skills = {};
+      skills[index] = {$set: event.target.value};
 
-      var update = {skills: []};
-      update.skills[index] = {$set: event.target.value || null};
-
-      var filters = React.addons.update(this.state.filters, update);
+      var filters = React.addons.update(this.state.filters, {skills});
       this.setState({
         filters,
         calculated: null
@@ -60,22 +57,13 @@ var App = React.createClass({
     if (this.state.calculated) {
       this.setState({
         displayed: this.state.calculated.sort((a, b) => {
-          if (a.distance < b.distance) {
-            return -1;
-          } else if (a.distance > b.distance) {
-            return 1;
-          } else if (a.weapon.DISTANCE < b.weapon.DISTANCE) {
-            return -1;
-          } else if (a.weapon.DISTANCE > b.weapon.DISTANCE) {
-            return 1;
-          } else if (a.armor.DISTANCE < b.armor.DISTANCE) {
-            return -1;
-          } else if (a.armor.DISTANCE > b.armor.DISTANCE) {
-            return 1;
-          } else if (a.pet.DISTANCE < b.pet.DISTANCE) {
-            return -1;
-          } else if (a.pet.DISTANCE > b.pet.DISTANCE) {
-            return 1;
+          var weaponDifference, armorDifference;
+          if ((weaponDifference = a.weapon.DISTANCE - b.weapon.DISTANCE) !== 0) {
+            return weaponDifference;
+          } else if ((armorDifference = a.armor.DISTANCE - b.armor.DISTANCE) !== 0) {
+            return armorDifference;
+          } else {
+            return a.pet.DISTANCE - b.pet.DISTANCE;
           }
         }),
         offset: 0
@@ -138,7 +126,7 @@ var App = React.createClass({
         {_.range(3).map(i => <div key={'skill-' + (i + 1)} className="form-group">
           <label htmlFor={'skill-' + (i + 1)} className="col-sm-2 control-label">Skill {i + 1}:</label>
           <div className="col-sm-10">
-            <select id={'skill-' + (i + 1)} className="form-control" onChange={this.skillChanged(i)}>
+            <select id={'skill-' + (i + 1)} className="form-control" value={this.state.filters.skills[i]} onChange={this.skillChanged(i)}>
               <option/>
               {this.state.skills.map(skill => <option key={skill}>{skill}</option>)}
             </select>
