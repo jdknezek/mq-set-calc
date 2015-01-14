@@ -4,6 +4,15 @@
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>MinuteQuest Set Calculator</title>
+    <script type="text/javascript">
+      addEventListener('load', function (e) {
+        applicationCache.addEventListener('updateready', function (e) {
+          if (applicationCache.status === applicationCache.UPDATEREADY && confirm('This application has been updated. Load the new version?')) {
+            location.reload();
+          }
+        });
+      });
+    </script>
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
     <script src="build.js"></script>

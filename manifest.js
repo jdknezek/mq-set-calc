@@ -11,6 +11,7 @@ Promise.promisifyAll(fs);
   var names = await Promise.promisify(globby)([
     'build.js*',
     'config.js',
+    'index.html',
     'jspm_packages/es6-module-loader.js*',
     'jspm_packages/github/twbs/bootstrap@3.3.1/css/bootstrap.css*',
     'jspm_packages/system.js*'
