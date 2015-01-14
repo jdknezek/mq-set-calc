@@ -57,8 +57,10 @@ var App = React.createClass({
     if (this.state.calculated) {
       this.setState({
         displayed: this.state.calculated.sort((a, b) => {
-          var weaponDifference, armorDifference;
-          if ((weaponDifference = a.weapon.DISTANCE - b.weapon.DISTANCE) !== 0) {
+          var distanceDifference, weaponDifference, armorDifference;
+          if ((distanceDifference = a.distance - b.distance) !== 0) {
+            return distanceDifference;
+          } else if ((weaponDifference = a.weapon.DISTANCE - b.weapon.DISTANCE) !== 0) {
             return weaponDifference;
           } else if ((armorDifference = a.armor.DISTANCE - b.armor.DISTANCE) !== 0) {
             return armorDifference;
