@@ -17,6 +17,7 @@ var App = React.createClass({
       filters,
       calculated: null,
       displayed: [],
+      sort: 'distance',
       offset: 0
     };
   },
@@ -56,18 +57,7 @@ var App = React.createClass({
 
     if (this.state.calculated) {
       this.setState({
-        displayed: this.state.calculated.sort((a, b) => {
-          var distanceDifference, weaponDifference, armorDifference;
-          if ((distanceDifference = a.distance - b.distance) !== 0) {
-            return distanceDifference;
-          } else if ((weaponDifference = a.weapon.DISTANCE - b.weapon.DISTANCE) !== 0) {
-            return weaponDifference;
-          } else if ((armorDifference = a.armor.DISTANCE - b.armor.DISTANCE) !== 0) {
-            return armorDifference;
-          } else {
-            return a.pet.DISTANCE - b.pet.DISTANCE;
-          }
-        }),
+        displayed: _.sortBy(this.state.calculated, this.state.sort),
         offset: 0
       });
     } else {
@@ -102,6 +92,34 @@ var App = React.createClass({
           .valueOf()
       });
     }
+  },
+
+  sortBy(field) {
+    var sort;
+    switch (field) {
+      case 'distance':
+        sort = 'distance';
+        break;
+      case 'weapon':
+        sort = set => set.weapon.DISTANCE;
+        break;
+      case 'armor':
+        sort = set => set.armor.DISTANCE;
+        break;
+      case 'pet':
+        sort = set => set.pet.DISTANCE;
+        break;
+    }
+
+    return event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.setState({
+        sort,
+        displayed: this.state.calculated ? _.sortBy(this.state.calculated, sort) : []
+      });
+    };
   },
 
   pageChanged(event) {
@@ -168,10 +186,10 @@ var App = React.createClass({
         <table className="table table-striped table-hover table-condensed">
           <thead>
             <tr>
-              <th>Distance</th>
-              <th>Weapon</th>
-              <th>Armor</th>
-              <th>Pet</th>
+              <th><a href="#" onClick={this.sortBy('distance')}>Distance</a></th>
+              <th><a href="#" onClick={this.sortBy('weapon')}>Weapon</a></th>
+              <th><a href="#" onClick={this.sortBy('armor')}>Armor</a></th>
+              <th><a href="#" onClick={this.sortBy('pet')}>Pet</a></th>
               <th>Skill 1</th>
               <th>Skill 2</th>
               <th>Skill 3</th>

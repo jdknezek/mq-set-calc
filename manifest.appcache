@@ -1,6 +1,6 @@
 CACHE MANIFEST
-build.js # 5c4e3f1e8165bebeded98152ee495ca67229c646
-build.js.map # 8f9e3d5968a6befa6efb432e321516b5e7ec606c
+build.js # b8a0dd83e7527596779d3977d543a21279d39cc7
+build.js.map # 6d59a614701bbce91d3bac07145f1b9cf36dc98f
 config.js # 32b6fea67c434824689dc79986e6c51e82f44b37
 index.html # 3237361ff390a202d03c6302b0bf23efeaa5fd72
 jspm_packages/es6-module-loader.js # ea262b49690ebf735f3b4e5f3ed15b151da7f299
